@@ -1,14 +1,28 @@
 from .models import Student
 from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator
+from django.contrib.auth import authenticate, login
+from .forms import UserForm
+# from django.views.generic import ListView
 
 # Create your views here
 def index(request):
     return render(request, 'index.html')
 
 def signup(request):
-    return render(request, 'signup.html')
-
+    if request.method == 'POST':
+        form = UserForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=raw_password)
+            login(request, user)
+            return redirect('/')
+    else:
+        form = UserForm()
+    return render(request, 'signup.html', {'form':form})
+            
 def student_list(request):
     page = request.GET.get('page', 1)
     student_list = Student.objects.order_by('-create_date')

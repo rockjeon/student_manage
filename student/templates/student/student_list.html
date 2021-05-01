@@ -40,6 +40,7 @@
             {%endif%}
         </tbody>
     </table>
+    <!-- pagination 구현 하기 -->
     <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-center">
             <li class="page-item">
@@ -72,8 +73,8 @@
                 <a class="page-link" href="?page={{student_list.next_page_number}}">다음</a>
             </li>
             {%else%}
-            <li class="page-item">
-                <a class="page-link" href="#">Next</a>
+            <li class="page-item disabled">
+                <a class="page-link" href="#">다음</a>
             </li>
             {%endif%}
             {%if student_list.has_next%}
