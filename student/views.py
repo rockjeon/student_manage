@@ -1,4 +1,4 @@
-from .models import Student
+from .models import Student, Course
 from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator
 from django.contrib.auth import authenticate, login
@@ -34,7 +34,8 @@ def student_list(request):
 
 
 def detail(request, student_id):
-    student = get_object_or_404(Student, pk=student_id)
-    context = {'student': student}
+    student = Student.objects.get(id=student_id)
+    course = Course.objects.get(id = student_id)
+    context = {'student': student, 'course':course}
     return render(request,'student/student_detail.html', context)
 
