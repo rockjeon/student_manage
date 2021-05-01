@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from .models import Student, Course
 # from student.models import Student
 
 class UserForm(UserCreationForm):
@@ -12,4 +13,31 @@ class UserForm(UserCreationForm):
     class Meta:
         model = User
         fields = ('username', 'email')
+
+class StudentForm(forms.ModelForm):
+    model = Student
+    class Meta:
+        fileds =[
+            'name',
+            'gender',
+            'birth',
+            'school',
+            'grade',
+            'phone',
+            'level',
+            'create_date',
+            'end_date'
+        ]
+
+class CourseForm(forms.ModelForm):
+    model = Course
+
+    class Meta:
+        fields = [
+            'main',
+            'library',
+            'voca_library',
+            'count',
+            'content',
+        ]
 

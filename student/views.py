@@ -2,6 +2,7 @@ from .models import Student, Course
 from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
 from .forms import UserForm
 # from django.views.generic import ListView
 
@@ -23,7 +24,9 @@ def signup(request):
         form = UserForm()
     return render(request, 'signup.html', {'form':form})
             
+@login_required
 def student_list(request):
+    
     page = request.GET.get('page', 1)
     student_list = Student.objects.order_by('-create_date')
     paginator = Paginator(student_list, 10)
@@ -32,10 +35,9 @@ def student_list(request):
     return render(request, 'student/student_list.html', context)
 
 
-
+@login_required
 def detail(request, student_id):
-    student = Student.objects.get(id=student_id)
-    course = Course.objects.get(id = student_id)
-    context = {'student': student, 'course':course}
+    student = get_object_or_404(Student, pk=student_id)
+    context = {'student': student}
     return render(request,'student/student_detail.html', context)
 

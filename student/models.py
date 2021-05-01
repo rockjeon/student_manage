@@ -47,7 +47,7 @@ class Course(models.Model):
         ('48','48')
     )
     objects = models.Manager()
-    course = models.ForeignKey(Student, on_delete=models.CASCADE)
+    student = models.ForeignKey(Student, on_delete=models.CASCADE)
     main = models.CharField(max_length=30, choices=MAINCHOICE)
     library = models.CharField(max_length=30, choices=LIBRARYCHOICE)
     voca_library = models.CharField(max_length=30, choices= VOCALIBRARYCHOICE)
@@ -55,4 +55,4 @@ class Course(models.Model):
     content = models.TextField()
 
     def __str__(self):
-        return str(self.course)
+        return str(self.student)
