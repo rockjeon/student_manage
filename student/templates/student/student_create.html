@@ -1,0 +1,120 @@
+{%extends 'base.html'%}
+{%block content%}
+<style>
+    select {
+        width: 200px;
+    }
+</style>
+<div class="container">
+    <h5 class="my-3 border-bottom pb-2">학생등록</h5>
+
+    <div class=" container my-3 row">
+        <div class="name col-md-4"">
+            <input type=" email" class="form-control" id="exampleFormControlInput1" placeholder="이름">
+        </div>
+        <div class="school col-md-4">
+            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="학교">
+        </div>
+        <div class="phone col-md-4" style="justify-content: right;">
+            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="번호">
+        </div>
+    </div>
+    <!-- --------------------------------------------------------------------------------------------------------- -->
+
+    <div class=" container my-3 row">
+        <div class="name col-md-4"">
+        <label for="">등록날짜</label>
+        <input type=" email" class="form-control" id="exampleFormControlInput1" placeholder="이름">
+        </div>
+        <div class="school col-md-4">
+            <label for="">마감날짜</label>
+            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="학교">
+        </div>
+        <div class="phone col-md-4" style="justify-content: right;">
+            <label for="">생일</label>
+            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="번호">
+        </div>
+    </div>
+    <!-- --------------------------------------------------------------------------------------------------------- -->
+    <div class=" container my-3 row">
+        <div class="name col-md-4"">
+            <label for="">성별</label> :
+            <select class=" form-select" aria-label="Default select example">
+            <option selected>성별을 선택해주세요</option>
+            <option value="1">남자</option>
+            <option value="2">여자</option>
+            </select>
+        </div>
+        <div class="school col-md-4">
+            <label for="">학년</label> :
+            <select class=" form-select" aria-label="Default select example">
+                <option selected>학년을 선택해주세요
+                <option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+            </select>
+        </div>
+        <div class="phone col-md-4" style="justify-content: right;">
+            <label for="">레벨</label> :
+            <select class=" form-select" aria-label="Default select example">
+                <option selected>레벨을 선택해주세요</option>
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+            </select>
+        </div>
+    </div>
+    <h5 class="my-3 border-bottom pb-2">코스등록</h5>
+    <div class=" container my-3 row">
+        <div class="name col-md-3"">
+            <label for="">main(course)</label> 
+            <select class=" form-select" aria-label="Default select example">
+            <option selected>메인코스를 선택해주세요</option>
+            <option value="1">Library</option>
+            <option value="2">Voca</option>
+            <option value="3">NF</option>
+            </select>
+        </div>
+        <div class="school col-md-3">
+            <label for="">Library</label> :
+            <select class=" form-select" aria-label="Default select example">
+                <option selected>시간을 선택해주세요</option>
+                <option value="1">R(1:20</option>
+                <option value="2">S(1:40)</option>
+                <option value="3">I(2:00)</option>
+            </select>
+        </div>
+        <div class="phone col-md-3" style="justify-content: right;">
+            <label for="">Voca + Library</label> :
+            <select class=" form-select" aria-label="Default select example">
+                <option selected>시간을 선택해주세요</option>
+                <option value="1">RV(1:40)</option>
+                <option value="2">SV(2:00)</option>
+                <option value="3">IV(2:20)</option>
+            </select>
+        </div>
+        <div class="phone col-md-3" style="justify-content: right;">
+            <label for="">Count</label>
+            <select class=" form-select" aria-label="Default select example" id="count">
+                <option selected>횟수를 선택해주세요.</option>
+                <option value="1">12</option>
+                <option value="2">24</option>
+                <option value="3">36</option>
+                <option value="3">48</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-md-12 my-3">
+        <label for="exampleFormControlTextarea1" class="form-label">특이사항</label>
+        <textarea class="form-control" placeholder="특이사항을 입력하세요" style="height: 300px;"></textarea>
+    </div>
+        <div class="row" style="justify-content: center;">
+            <button type="button" class="btn btn-primary btn-lg" >등록하기</button>
+        </div>
+    
+</div>
+{%endblock%}

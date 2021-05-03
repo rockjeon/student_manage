@@ -3,6 +3,7 @@
 <style>
     textarea {
         height: 200px;
+        
     }
     .container{
         border: 1px solid black;
@@ -52,7 +53,7 @@
 </div>
 <h1 style="text-align: center;">특이사항</h1>
 <div class="row" style="justify-content: center;">
-    <textarea {% if not user.is_authenticated %}disabled{% endif %} id="textarea"
+    <textarea {% if not user.is_authenticated %}disabled{% endif %} id="textarea" disabled
         style="width: 100%;">{{course.content}}</textarea>
 </div>
 {%endfor%}

@@ -15,9 +15,9 @@ class UserForm(UserCreationForm):
         fields = ('username', 'email')
 
 class StudentForm(forms.ModelForm):
-    model = Student
     class Meta:
-        fileds =[
+        model = Student
+        fields =[
             'name',
             'gender',
             'birth',
@@ -30,14 +30,14 @@ class StudentForm(forms.ModelForm):
         ]
 
 class CourseForm(forms.ModelForm):
-    model = Course
-
     class Meta:
+        model = Course
+
         fields = [
             'main',
             'library',
             'voca_library',
             'count',
-            'content',
+            'content'
         ]
 
