@@ -21,8 +21,8 @@
     </div>
     <div class=" button row" style="justify-content:flex-end;">
         <div class="modify">
-            <a href="#" class="btn btn-secondary btn-sm" role="button">수정</a>
-            <a href="#" class="btn btn-danger btn-sm" role="button">삭제</a>
+            <a href="{% url 'student:modify' student.id %}" class="btn btn-secondary btn-sm" role="button">수정</a>
+            <a href="" class="btn btn-danger btn-sm" role="button">삭제</a>
         </div>
     </div>
 <div class="row" style="justify-content: center;">
@@ -36,26 +36,40 @@
             <li class="list-group-item">기간: {{student.create_date}}~{{student.end_date}}</li>
         </ul>
     </div>
-    {%for course in student.course_set.all%}
     <div class="card" style="width: 30rem;">
         <div class="card-body">
             <h5 class="card-title" style="text-align: center;">Course Detail</h5>
 
         </div>
         <ul class="list-group list-group-flush">
-            <li class="list-group-item">course: {{course.main}}</li>
-            <li class="list-group-item">Library: {{course.library}}</li>
-            <li class="list-group-item">Voca+Library: {{course.voca_library}}</li>
-            <li class="list-group-item">Count: {{course.count}}</li>
-
+            {%if student.main == None%}
+                <li class="list-group-item">Course: 등록되지 않음</li>
+            {%else %}
+                <li class="list-group-item">Course: {{student.main}}</li>
+            {%endif%}
+            
+            {%if student.library == None%}
+                <li class="list-group-item">Library: 등록되지 않음</li>
+            {%else%}
+                <li class="list-group-item">Library: {{student.library}}</li>
+            {%endif%}
+            {%if student.voca_library == None%}
+                <li class="list-group-item">Voca+Library: 등록되지않음</li>
+            {%else%}
+                <li class="list-group-item">Voca+Library: {{student.voca_library}}</li>
+            {%endif%}
+            {%if student.count == None%}
+                <li class="list-group-item">Count: 등록되지않음</li>
+            {%else%}
+                <li class="list-group-item">Count: {{student.count}}</li>
+            {%endif%}
         </ul>
     </div>
 </div>
 <h1 style="text-align: center;">특이사항</h1>
 <div class="row" style="justify-content: center;">
-    <textarea {% if not user.is_authenticated %}disabled{% endif %} id="textarea" disabled
-        style="width: 100%;">{{course.content}}</textarea>
+    <textarea {% if not user.is_authenticated %}disabled{% endif %} id="textarea" 
+        style="width: 100%;">{{student.content}}</textarea>
 </div>
-{%endfor%}
 </div>
 {%endblock%}

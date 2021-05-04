@@ -27,7 +27,11 @@
                 <td>{{student.birth}}</td>
                 <td>{{student.school}}</td>
                 <td>{{student.grade}}학년</td>
+                {%if student.level == None%}
+                <td></td>
+                {%else%}
                 <td>LV. {{student.level}}</td>
+                {%endif%}
                 <td>{{student.create_date}}</td>
                 <td>{{student.end_date}}</td>
                 <td>{{student.phone}}</td>

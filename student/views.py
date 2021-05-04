@@ -1,9 +1,9 @@
-from .models import Student, Course
+from .models import Student
 from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
-from .forms import UserForm, StudentForm, CourseForm
+from .forms import UserForm, StudentForm
 # from django.views.generic import ListView
 
 # Create your views here
@@ -28,7 +28,7 @@ def signup(request):
 def student_list(request):
     
     page = request.GET.get('page', 1)
-    student_list = Student.objects.order_by('-create_date')
+    student_list = Student.objects.order_by('-id')
     paginator = Paginator(student_list, 10)
     page_obj = paginator.get_page(page)
     context = {'student_list': page_obj}
@@ -38,16 +38,24 @@ def student_list(request):
 @login_required
 def detail(request, student_id):
     student = get_object_or_404(Student, pk=student_id)
-    context = {'student': student}
+    context = {'student': student}  
     return render(request,'student/student_detail.html', context)
 
 @login_required
-
 def student_create(request):
-    form = StudentForm()
-    print(form)
-    course = CourseForm()
-    context={'form':form, 'course':course  }
-    print(context)
+    if request.method == 'POST':
+        form = StudentForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect ('/')
+    else:
+        form = StudentForm()
+    
+    context={'form':form}
     return render(request, 'student/student_form.html', context)
 
+
+@login_required
+def modify(request, student_id):
+    
+    return render(request, 'student/student_form.html')
