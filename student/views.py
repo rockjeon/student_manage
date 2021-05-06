@@ -4,6 +4,7 @@ from django.core.paginator import Paginator
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from .forms import UserForm, StudentForm
+from django.utils import timezone        
 # from django.views.generic import ListView
 
 # Create your views here
@@ -46,7 +47,10 @@ def student_create(request):
     if request.method == 'POST':
         form = StudentForm(request.POST)
         if form.is_valid():
-            form.save()
+            student = form.save(commit=False)
+            user = request.user
+            student.author = user
+            student.save()
             return redirect ('/')
     else:
         form = StudentForm()
@@ -57,5 +61,22 @@ def student_create(request):
 
 @login_required
 def modify(request, student_id):
-    
-    return render(request, 'student/student_form.html')
+    student = get_object_or_404(Student, pk=student_id)
+    if request.method == "POST":
+        form = StudentForm(request.POST, instance=student)
+        if form.is_valid():
+            student = form.save(commit=False)
+            student.modify_date = timezone.now()  # 수정일시 저장
+            student.author = request.user
+            student.save()
+            return redirect('student:detail', student_id = student.id)
+    else:
+        form = StudentForm(instance=student)
+    context = {'form':form}
+    return render(request, 'student/student_form.html',context)
+
+@login_required
+def delete(request, student_id):
+    student = get_object_or_404(Student, pk=student_id)
+    student.delete()
+    return redirect('student:list')

@@ -17,12 +17,15 @@
     <div class='row'>
         <div class="head col-md-12" style="justify-content: center;">
             <h1 style="text-align: center;">{{student.name}}</h1>
+            <div>
+                <p style="text-align: right;">등록자: {{student.author}}</p>
+            </div>
         </div>
     </div>
     <div class=" button row" style="justify-content:flex-end;">
         <div class="modify">
             <a href="{% url 'student:modify' student.id %}" class="btn btn-secondary btn-sm" role="button">수정</a>
-            <a href="" class="btn btn-danger btn-sm" role="button">삭제</a>
+            <a href="#" class="delete btn btn-danger btn-sm" data-uri="{% url 'student:delete' student.id  %}">삭제</a>
         </div>
     </div>
 <div class="row" style="justify-content: center;">
@@ -45,7 +48,7 @@
             {%if student.main == None%}
                 <li class="list-group-item">Course: 등록되지 않음</li>
             {%else %}
-                <li class="list-group-item">Course: {{student.main}}</li>
+                <li class="list-group-item" >Course: {{student.main}}</li>
             {%endif%}
             
             {%if student.library == None%}
@@ -68,8 +71,24 @@
 </div>
 <h1 style="text-align: center;">특이사항</h1>
 <div class="row" style="justify-content: center;">
+    {%if student.content == None%}
     <textarea {% if not user.is_authenticated %}disabled{% endif %} id="textarea" 
-        style="width: 100%;">{{student.content}}</textarea>
-</div>
+        style="width: 100%;" disabled></textarea>
+    {%else%}
+    <textarea {% if not user.is_authenticated %}disabled{% endif %} id="textarea" 
+        style="width: 100%;" disabled>{{student.content}}</textarea>
+    {%endif%}
+    </div>
 </div>
 {%endblock%}
+{%block script%}
+<script type='text/javascript'>
+$(document).ready(function(){
+    $(".delete").on('click', function() {
+        if(confirm("정말로 삭제하시겠습니까?")) {
+            location.href = $(this).data('uri');
+        }
+    });
+});
+</script>
+{% endblock %}

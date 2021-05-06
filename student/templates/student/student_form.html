@@ -21,14 +21,17 @@
         <div class="general">
             <div class=" container my-3 row">
                 <div class="name col-md-4"">
+                    <label for="">이름</label>
             <input type=" text" class="form-control" id="name" placeholder="이름"
                     value="{{ form.name.value|default_if_none:'' }}" name="name">
                 </div>
                 <div class="school col-md-4">
+                    <label for="">학교</label>
                     <input type="text" class="form-control" id="school" placeholder="학교"
                         value="{{ form.school.value|default_if_none:'' }}" name="school">
                 </div>
                 <div class="phone col-md-4" style="justify-content: right;">
+                    <label for="">전화번호</label>
                     <input type="tel" class="form-control" id=phone" placeholder="010-0000-0000"
                         pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" required value="{{ form.phone.value|default_if_none:'' }}"
                         name="phone">
@@ -37,33 +40,61 @@
             </div>
             <div class=" container my-3 row">
                 <div class="name col-md-4"">
-        <label for="">등록날짜</label>
-        <input type="date" class="form-control" id="create_date" placeholder="등록날짜"
+                <label for="">등록날짜</label>
+                {%if form.create_date.value%}
+                    <input type="text" class="form-control" id="create_date" placeholder="등록날짜"
+                        value="{{ form.create_date.value|default_if_none:'' }}" name="create_date">
+                {%else%}
+                    <input type="date" class="form-control" id="create_date" placeholder="등록날짜"
                     value="{{ form.create_date.value|default_if_none:'' }}" name="create_date">
+                {%endif%}
                 </div>
                 <div class="school col-md-4">
                     <label for="">마감날짜</label>
-                    <input type="date" class="form-control" id="end_date" placeholder="마감날짜"
-                        value="{{ form.end_date.value|default_if_none:'' }}" name="end_date">
-                </div>
+                    {%if form.end_date.value%}
+                        <input type="text" class="form-control" id="end_date" placeholder="마감날짜"
+                            value="{{ form.end_date.value|default_if_none:'' }}" name="end_date">
+                    {%else%}
+                        <input type="date" class="form-control" id="end_date" placeholder="마감날짜"
+                            value="{{ form.end_date.value|default_if_none:'' }}" name="end_date">
+                    {%endif%}
+                    </div>
                 <div class="phone col-md-4" style="justify-content: right;">
                     <label for="">생일</label>
-                    <input type="date" class="form-control" id="birth" placeholder="생일"
-                        value="{{ form.birth.value|default_if_none:'' }}" name="birth">
+                    {%if form.birth.value%}
+                        <input type="text"class="form-control" id="birth" placeholder="생일"
+                            value="{{ form.birth.value|default_if_none:'' }}" name="birth">
+                    {%else%}
+                        <input type="date" class="form-control" id="birth" placeholder="생일"
+                            value="{{ form.birth.value|default_if_none:'' }}" name="birth">
+                    {%endif%}
                 </div>
             </div>
             <div class="container my-3 row">
                 <div class="name col-md-4"">
                 <label for="">성별</label>
-                <input type="radio" id="gender" name="gender" value="M">
+                {%if form.gender.value == 'M'%}
+                <input type="radio" id="gender" name="gender" value="M" checked>
                     <label for="M">Male</label>
                     <input type="radio" id="gender" name="gender" value="F">
                     <label for="F">Female</label>
+                {%elif form.gender.value == "F" %}
+                <input type="radio" id="gender" name="gender" value="M">
+                    <label for="M">Male</label>
+                <input type="radio" id="gender" name="gender" value="F" checked>
+                    <label for="F">Female</label>
+                {%else%}
+                <input type="radio" id="gender" name="gender" value="M">
+                <label for="M">Male</label>
+                <input type="radio" id="gender" name="gender" value="F">
+                <label for="F">Female</label>
+                {%endif%}
+                
                 </div>
                 <div class=" school col-md-4">
                     <label for="grade">학년</label> :
                     <select class=" form-select" aria-label="Default select example" name="grade">
-                        <option selected>학년을 선택해주세요
+                        <option selected>{{form.grade.value|default_if_none:''}}</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -76,7 +107,7 @@
                 <div class="phone col-md-4" style="justify-content: right;">
                     <label for="level">레벨</label> :
                     <select class=" form-select" aria-label="Default select example" name="level">
-                        <option selected>레벨을 선택해주세요</option>
+                        <option selected>{{form.level.value|default_if_none:''}}</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -97,7 +128,7 @@
             <div class="name col-md-3"">
                 <label for="">main(course)</label><br> 
                 <select class=" form-select" aria-label="Default select example" name="main">
-                <option selected>메인코스를 선택해주세요</option>
+                <option selected value="">{{form.main.value|default_if_none:''}}</option>
                 <option value="Library">Library</option>
                 <option value="Voca">Voca</option>
                 <option value="NF">NF</option>
@@ -106,7 +137,7 @@
             <div class="school col-md-3">
                 <label for="">Library</label><br>
                 <select class=" form-select" aria-label="Default select example" name="library">
-                    <option selected>시간을 선택해주세요</option>
+                    <option selected>{{form.library.value|default_if_none:''}} </option>
                     <option value="R(1:20)">R(1:20</option>
                     <option value="S(1:40)">S(1:40)</option>
                     <option value="I(2:00)">I(2:00)</option>
@@ -115,7 +146,7 @@
             <div class="phone col-md-3" style="justify-content: right;">
                 <label for="">Voca + Library</label><br>
                 <select class=" form-select" aria-label="Default select example" name="voca_library">
-                    <option selected>시간을 선택해주세요</option>
+                    <option selected>{{form.voca_library.value|default_if_none:''}} </option>
                     <option value="RV(1:40)">RV(1:40)</option>
                     <option value="SV(2:00)">SV(2:00)</option>
                     <option value="IV(2:20)">IV(2:20)</option>
@@ -124,7 +155,7 @@
             <div class="phone col-md-3" style="justify-content: right;">
                 <label for="">Count</label><br>
                 <select class=" form-select" aria-label="Default select example" id="count" name="count">
-                    <option selected>횟수를 선택해주세요.</option>
+                    <option selected>{{form.count.value|default_if_none:''}}</option>
                     <option value="12">12</option>
                     <option value="24">24</option>
                     <option value="36">36</option>
@@ -133,8 +164,8 @@
             </div>
         </div>
         <div class="col-md-12 my-3">
-            <label for="exampleFormControlTextarea1" class="form-label">특이사항</label>
-            <textarea class="form-control" placeholder="특이사항을 입력하세요" name="content" id="content"></textarea>
+            <label for="content" class="form-label">특이사항</label>
+            <textarea class="form-control" placeholder="특이사항을 입력하세요" name="content" id="content" >{{form.content.value|default_if_none:''}}</textarea>
         </div>
         <div class="row" style="justify-content: flex-end;">
             <button type="submit" class="btn btn-primary">등록</button>
