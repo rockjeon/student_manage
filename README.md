@@ -22,4 +22,5 @@
 
 #### 디렉토리구조
 ![image](https://user-images.githubusercontent.com/45707096/117929341-aa7faf80-b337-11eb-89bf-2846ec7f760e.png)
+
 backoffice라는 프로젝트에 student app을 설치해서 프로젝트진행
